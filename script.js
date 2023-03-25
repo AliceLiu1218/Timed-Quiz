@@ -1,8 +1,9 @@
 var startbtn = document.querySelector("#startbtn")
 var timer = document.querySelector("#timer")
-var count = 5;
+var count = 30;
 var startpage = document.querySelector(".startpage")
 var questionpage = document.querySelector(".question")
+var resultpage = document.querySelector(".resultpage")
 var answer1 = document.querySelector("#answer1")
 var answer2 = document.querySelector("#answer2")
 var answer3 = document.querySelector("#answer3")
@@ -16,11 +17,19 @@ var ans3Index = answer3.dataset.index;
 var ans4Index = answer4.dataset.index;
 
 var compareAns = '';
+var compareArr = [];
+var questioncount = 0;
+var check = true;
+
+
 //set up timer
 function timerSetup() {
-    jumppage();
+    jumpQespage();
     var myinterval = setInterval(function() {
         count--;
+        if (check == false) {
+            count = count-5;
+        }
         timer.textContent = `Timer: ${count}`
         if (count == 0) {
             timer.textContent = `Timer: Time out`
@@ -30,9 +39,14 @@ function timerSetup() {
     
 }
 
-function jumppage() {
+function jumpQespage() {
     startpage.setAttribute("style","display:none");
     questionpage.setAttribute("style","display:block");
+}
+
+function jumpRespage() {
+    questionpage.setAttribute("style","display:none");
+    resultpage.setAttribute("style","display:block");
 }
 startbtn.addEventListener("click", timerSetup)
 
@@ -52,6 +66,8 @@ function populateNextQuestion3() {
     answer2.textContent = "ANSWER3333333333";
     answer3.textContent = "ANSWER33333333333";
     answer4.textContent = "ANSWER333333333333";
+
+    
 }
 function populateNextQuestion4() {
     
@@ -60,41 +76,84 @@ function populateNextQuestion4() {
     answer2.textContent = "ANSWER4444444444";
     answer3.textContent = "ANSWER444444444444";
     answer4.textContent = "ANSWER4444444444444";
+
+    
 }
+function checkAns() {
+    if (questioncount == 1) {
+        if (compareArr[0] == 1) {
+            result.textContent = "Correct!";
+            populateNextQuestion2();
+        }else {
+            result.textContent = "Wrong!";
+            check = false;
+            populateNextQuestion2();
+        }
+    }
+    else if (questioncount == 2) {
+        if (compareArr[1] == 2) {
+            result.textContent = "Correct!";
+            populateNextQuestion3();
+        }else {
+            result.textContent = "Wrong!";
+            populateNextQuestion3();
+        }
+    }
+    else if (questioncount == 3) {
+        if (compareArr[2] == 3) {
+            result.textContent = "Correct!";
+            populateNextQuestion4();
+        }else {
+            result.textContent = "Wrong!";
+            populateNextQuestion4();
+        }
+    } 
+    else {
+        if (compareArr[3] == 4) {
+            result.textContent = "Correct!";
+            jumpRespage();
+        }else {
+            result.textContent = "Wrong!";
+            jumpRespage();
+        }
+    }
+    
+}
+
 
 function setAns1st() {
     
     localStorage.setItem("selected", ans1Index);
     compareAns = localStorage.getItem("selected");
-    checkAns();
+    compareArr.push(compareAns);
+    questioncount++;
+    checkAns()
 }
 function setAns2nd() {
     
     localStorage.setItem("selected", ans2Index);
     compareAns = localStorage.getItem("selected");
-    checkAns();
+    compareArr.push(compareAns);
+    questioncount++;
+    checkAns()
 }
 function setAns3rd() {
     
     localStorage.setItem("selected", ans3Index);
     compareAns = localStorage.getItem("selected");
-    checkAns();
+    compareArr.push(compareAns);
+    questioncount++;
+    checkAns()
 }
 function setAns4th() {
     
     localStorage.setItem("selected", ans4Index);
     compareAns = localStorage.getItem("selected");
-    checkAns();
+    compareArr.push(compareAns);
+    questioncount++;
+    checkAns()
 }
-function checkAns() {
-    if (compareAns == "1") {
-        result.textContent = "Correct!";
-        populateNextQuestion2();
-    }else {
-        result.textContent = "Wrong!";
-        populateNextQuestion2();
-    }
-}
+
 answer1.addEventListener("click",setAns1st)
 answer2.addEventListener("click",setAns2nd)
 answer3.addEventListener("click",setAns3rd)
