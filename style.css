@@ -8,15 +8,15 @@
 }
 
 .question {
-    /* display: none; */
+    display: none;
 }
 
 .result {
-    /* display: none; */
+    display: none;
 }
 
 .conclusion {
-    /* display: none; */
+    display: none;
 }
 
 .btn:hover {
