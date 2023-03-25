@@ -33,6 +33,7 @@ function timerSetup() {
         timer.textContent = `Timer: ${count}`
         if (count == 0) {
             timer.textContent = `Timer: Time out`
+            jumpRespage();
             clearInterval(myinterval)
         }
     },1000);
