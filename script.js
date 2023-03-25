@@ -27,9 +27,7 @@ function timerSetup() {
     jumpQespage();
     var myinterval = setInterval(function() {
         count--;
-        if (check == false) {
-            count = count-5;
-        }
+
         timer.textContent = `Timer: ${count}`
         if (count == 0) {
             timer.textContent = `Timer: Time out`
@@ -86,7 +84,7 @@ function checkAns() {
             populateNextQuestion2();
         }else {
             result.textContent = "Wrong!";
-            check = false;
+            count = count-5;
             populateNextQuestion2();
         }
     }
@@ -96,6 +94,7 @@ function checkAns() {
             populateNextQuestion3();
         }else {
             result.textContent = "Wrong!";
+            count = count-5;
             populateNextQuestion3();
         }
     }
@@ -105,6 +104,7 @@ function checkAns() {
             populateNextQuestion4();
         }else {
             result.textContent = "Wrong!";
+            count = count-5;
             populateNextQuestion4();
         }
     } 
@@ -114,6 +114,7 @@ function checkAns() {
             jumpRespage();
         }else {
             result.textContent = "Wrong!";
+            count = count-5;
             jumpRespage();
         }
     }
