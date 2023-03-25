@@ -10,6 +10,7 @@ var answer3 = document.querySelector("#answer3")
 var answer4 = document.querySelector("#answer4")
 var result = document.querySelector("#result")
 var question = document.querySelector("#questiontxt")
+var scorepop = document.querySelector("#score-update")
 
 var ans1Index = answer1.dataset.index;
 var ans2Index = answer2.dataset.index;
@@ -19,7 +20,8 @@ var ans4Index = answer4.dataset.index;
 var compareAns = '';
 var compareArr = [];
 var questioncount = 0;
-var check = true;
+var score = 0;
+
 
 
 //set up timer
@@ -45,6 +47,7 @@ function jumpQespage() {
 function jumpRespage() {
     questionpage.setAttribute("style","display:none");
     resultpage.setAttribute("style","display:block");
+    scorepop.textContent = `Your final score is: ${score}`
 }
 startbtn.addEventListener("click", timerSetup)
 
@@ -81,6 +84,7 @@ function checkAns() {
     if (questioncount == 1) {
         if (compareArr[0] == 1) {
             result.textContent = "Correct!";
+            score +=5;
             populateNextQuestion2();
         }else {
             result.textContent = "Wrong!";
@@ -91,6 +95,7 @@ function checkAns() {
     else if (questioncount == 2) {
         if (compareArr[1] == 2) {
             result.textContent = "Correct!";
+            score +=5;
             populateNextQuestion3();
         }else {
             result.textContent = "Wrong!";
@@ -101,6 +106,7 @@ function checkAns() {
     else if (questioncount == 3) {
         if (compareArr[2] == 3) {
             result.textContent = "Correct!";
+            score +=5;
             populateNextQuestion4();
         }else {
             result.textContent = "Wrong!";
@@ -111,6 +117,7 @@ function checkAns() {
     else {
         if (compareArr[3] == 4) {
             result.textContent = "Correct!";
+            score +=5
             jumpRespage();
         }else {
             result.textContent = "Wrong!";
