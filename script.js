@@ -58,10 +58,21 @@ historybtn.addEventListener("click", jumpHis)
 function jumpHis() {
     var initial = document.getElementById("fname");
     var ini_value = initial.value;
-    console.log(ini_value)
     resultpage.setAttribute("style","display:none");
     conclupage.setAttribute("style","display:block");
     info.textContent = `${ini_value} : ${score}`;
+
+    var go_back = document.querySelector("#go_back")
+    go_back.addEventListener("click",jumpfirst)
+    var clear = document.querySelector("#clear")
+    clear.addEventListener("click",function(){
+        info.textContent = '';
+    })
+}
+
+function jumpfirst() {
+    conclupage.setAttribute("style","display:none");
+    startpage.setAttribute("style","display:block");
 }
 startbtn.addEventListener("click", timerSetup)
 
