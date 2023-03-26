@@ -4,6 +4,7 @@ var count = 30;
 var startpage = document.querySelector(".startpage")
 var questionpage = document.querySelector(".question")
 var resultpage = document.querySelector(".resultpage")
+var conclupage = document.querySelector(".conclusionpage")
 var answer1 = document.querySelector("#answer1")
 var answer2 = document.querySelector("#answer2")
 var answer3 = document.querySelector("#answer3")
@@ -11,6 +12,8 @@ var answer4 = document.querySelector("#answer4")
 var result = document.querySelector("#result")
 var question = document.querySelector("#questiontxt")
 var scorepop = document.querySelector("#score-update")
+var historybtn = document.querySelector("#history")
+var info = document.querySelector("#infoupdate")
 
 var ans1Index = answer1.dataset.index;
 var ans2Index = answer2.dataset.index;
@@ -49,6 +52,15 @@ function jumpRespage() {
     questionpage.setAttribute("style","display:none");
     resultpage.setAttribute("style","display:block");
     scorepop.textContent = `Your final score is: ${score}`
+    
+}
+historybtn.addEventListener("click", jumpHis)
+function jumpHis() {
+    var initial = document.getElementById("#userInput")
+    console.log(initial)
+    resultpage.setAttribute("style","display:none");
+    conclupage.setAttribute("style","display:block");
+    info.textContent = `${initial} : ${score}`;
 }
 startbtn.addEventListener("click", timerSetup)
 
