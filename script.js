@@ -56,11 +56,12 @@ function jumpRespage() {
 }
 historybtn.addEventListener("click", jumpHis)
 function jumpHis() {
-    var initial = document.getElementById("#userInput")
-    console.log(initial)
+    var initial = document.getElementById("fname");
+    var ini_value = initial.value;
+    console.log(ini_value)
     resultpage.setAttribute("style","display:none");
     conclupage.setAttribute("style","display:block");
-    info.textContent = `${initial} : ${score}`;
+    info.textContent = `${ini_value} : ${score}`;
 }
 startbtn.addEventListener("click", timerSetup)
 
