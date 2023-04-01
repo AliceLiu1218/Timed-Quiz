@@ -25,18 +25,18 @@ var count = 30;
 
 //questions objects
 var questionBank = [{
-    prompt: "Question 111111",
-    correctAnswer: "option 1",
-    answers: ["option 1", "option 2", "option 3", "option 4"]
+    prompt: "Which of the following function of Array object sorts the elements of an array?",
+    correctAnswer: "sort()",
+    answers: ["toSource()", "sort()", "toString()", "unshift()"]
 }, {
-    prompt: "Question 2",
-    correctAnswer: "option 4",
-    answers: ["option 4", "option 1", "option 5", "option 7", "option 555"]
+    prompt: "Which of the following keywords is used to define a variable in Javascript?",
+    correctAnswer: "Both A and B",
+    answers: ["var", "let", "Both A and B", "None of the above"]
 },
 {
-    prompt: "Question 3",
-    correctAnswer: "option 42",
-    answers: ["option 43", "option 42", "option 521", "option 337"]
+    prompt: "How can a datatype be declared to be a constant type?",
+    correctAnswer: "const",
+    answers: ["const", "var", "let", "constant"]
 }]
 
 function showQuestion() {

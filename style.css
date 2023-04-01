@@ -85,3 +85,9 @@
 .init-btn:hover {
     background-color: darkgray;
 }
+
+#header {
+    color:brown;
+    font-size: 3.5rem;
+
+}
