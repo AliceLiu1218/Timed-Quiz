@@ -16,7 +16,7 @@
 }
 
 .conclusionpage {
-    
+    display: none;
 }
 
 .btn:hover {
@@ -38,6 +38,7 @@
 }
 
 .question-container {
+    
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -49,7 +50,8 @@
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block;
+  
+  display: block;
   color :brown;
   border-radius: 15px;
 }

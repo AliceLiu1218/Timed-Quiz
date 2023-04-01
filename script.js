@@ -1,36 +1,97 @@
 var startbtn = document.querySelector("#startbtn")
 var timer = document.querySelector("#timer")
-var count = 30;
-var startpage = document.querySelector(".startpage")
 var questionpage = document.querySelector(".question")
 var resultpage = document.querySelector(".resultpage")
 var conclupage = document.querySelector(".conclusionpage")
-var answer1 = document.querySelector("#answer1")
-var answer2 = document.querySelector("#answer2")
-var answer3 = document.querySelector("#answer3")
-var answer4 = document.querySelector("#answer4")
-var result = document.querySelector("#result")
-var question = document.querySelector("#questiontxt")
+
 var scorepop = document.querySelector("#score-update")
 var historybtn = document.querySelector("#history")
 var info = document.querySelector("#infoupdate")
 
-var ans1Index = answer1.dataset.index;
-var ans2Index = answer2.dataset.index;
-var ans3Index = answer3.dataset.index;
-var ans4Index = answer4.dataset.index;
 
-var compareAns = '';
-var compareArr = [];
-var questioncount = 0;
+var questioncount;
 var score = 0;
+var count = 30;
+
+// 1. Show a question
+// 2. Show the answers
+// 3. Add Event listener to answers
+// 4. Check if the answer selected is correct
+// a. If correct, show correct
+// b. If wrong, show incorrect and deduct time
+// 5. Check if there's a next question
+// a. If no next question, endQuiz()
+// b. Else, move to the next question, and repeat step 1.
+
+//questions objects
+var questionBank = [{
+    prompt: "Question 111111",
+    correctAnswer: "option 1",
+    answers: ["option 1", "option 2", "option 3", "option 4"]
+}, {
+    prompt: "Question 2",
+    correctAnswer: "option 4",
+    answers: ["option 4", "option 1", "option 5", "option 7", "option 555"]
+},
+{
+    prompt: "Question 3",
+    correctAnswer: "option 42",
+    answers: ["option 43", "option 42", "option 521", "option 337"]
+}]
+
+function showQuestion() {
+    console.log("Showing questions")
+    // select html element we want to change
+    var questionEl = document.querySelector("#questiontxt")
+    // what to change it to? -- current question in question bank, change it to the prompt key
+    questionEl.textContent = questionBank[questioncount].prompt
 
 
+    //show our answer choices
+    // select html element to put our answer choices to
+    var answersEl = document.querySelector("#answer-choices")
+    answersEl.innerHTML = ""
+    // for loop
+    for (let i = 0; i < questionBank[questioncount].answers.length; i++) {
+        var answerBtn = document.createElement("button")
+        answerBtn.classList.add("btn");
+        answerBtn.setAttribute("style", "margin:auto");
+        answerBtn.innerHTML = questionBank[questioncount].answers[i]
+        answerBtn.addEventListener("click", checkAnswer)
+        answersEl.appendChild(answerBtn)
+    }
+    // create a button add their text content, and make them listen to checkAnswer()
+
+}
+
+function checkAnswer(event) {
+    event.preventDefault()
+    console.log("checking answer")
+    console.log(event.target)
+    console.log(event.target.innerHTML)
+    // check the button that was clicked on === event.target
+    // somehow check the text of the button
+    var result = document.querySelector("#result")
+    if (event.target.innerHTML === questionBank[questioncount].correctAnswer) {
+        result.textContent = "Correct"
+        score +=5
+    } else {
+        result.textContent = "Incorrect"
+        count -= 5
+    }
+
+    if(questioncount == questionBank.length -1){
+        endQuiz()
+        return
+    }
+    questioncount ++
+    showQuestion()
+}
 
 //set up timer
 function timerSetup() {
-    jumpQespage();
-    var myinterval = setInterval(function() {
+    startQuiz();
+    var myinterval = setInterval(function () {
         count--;
 
         timer.textContent = `Timer: ${count}`
@@ -39,156 +100,44 @@ function timerSetup() {
             jumpRespage();
             clearInterval(myinterval)
         }
-    },1000);
-    
+    }, 1000);
+
 }
 
-function jumpQespage() {
-    startpage.setAttribute("style","display:none");
-    questionpage.setAttribute("style","display:block");
+function startQuiz() {
+    var startpage = document.querySelector(".startpage")
+    startpage.setAttribute("style", "display:none");
+    questionpage.setAttribute("style", "display:block");
+    questioncount = 0
+    showQuestion()
 }
 
-function jumpRespage() {
-    questionpage.setAttribute("style","display:none");
-    resultpage.setAttribute("style","display:block");
+function endQuiz() {
+    questionpage.setAttribute("style", "display:none");
+    resultpage.setAttribute("style", "display:block");
     scorepop.textContent = `Your final score is: ${score}`
-    
+
 }
 historybtn.addEventListener("click", jumpHis)
 function jumpHis() {
     var initial = document.getElementById("fname");
     var ini_value = initial.value;
-    resultpage.setAttribute("style","display:none");
-    conclupage.setAttribute("style","display:block");
+    resultpage.setAttribute("style", "display:none");
+    conclupage.setAttribute("style", "display:block");
     info.textContent = `${ini_value} : ${score}`;
 
     var go_back = document.querySelector("#go_back")
-    go_back.addEventListener("click",jumpfirst)
+    go_back.addEventListener("click", jumpstart)
     var clear = document.querySelector("#clear")
-    clear.addEventListener("click",function(){
+    clear.addEventListener("click", function () {
         info.textContent = '';
     })
 }
 
-function jumpfirst() {
-    conclupage.setAttribute("style","display:none");
-    startpage.setAttribute("style","display:block");
+function jumpstart() {
+    var startpage = document.querySelector(".startpage")
+    conclupage.setAttribute("style", "display:none");
+    startpage.setAttribute("style", "display:block");
 }
+
 startbtn.addEventListener("click", timerSetup)
-
-function populateNextQuestion2() {
-    
-    question.textContent = "question22222";
-    answer1.textContent = "ANSWER222222222";
-    answer2.textContent = "ANSWER222222222";
-    answer3.textContent = "ANSWER222222222";
-    answer4.textContent = "ANSWER2222222222";
-
-}
-function populateNextQuestion3() {
-    
-    question.textContent = "question333333";
-    answer1.textContent = "ANSWER33333333333";
-    answer2.textContent = "ANSWER3333333333";
-    answer3.textContent = "ANSWER33333333333";
-    answer4.textContent = "ANSWER333333333333";
-
-    
-}
-function populateNextQuestion4() {
-    
-    question.textContent = "question4444444444";
-    answer1.textContent = "ANSWER44444444444";
-    answer2.textContent = "ANSWER4444444444";
-    answer3.textContent = "ANSWER444444444444";
-    answer4.textContent = "ANSWER4444444444444";
-
-    
-}
-function checkAns() {
-    if (questioncount == 1) {
-        if (compareArr[0] == 1) {
-            result.textContent = "Correct!";
-            score +=5;
-            populateNextQuestion2();
-        }else {
-            result.textContent = "Wrong!";
-            count = count-5;
-            populateNextQuestion2();
-        }
-    }
-    else if (questioncount == 2) {
-        if (compareArr[1] == 2) {
-            result.textContent = "Correct!";
-            score +=5;
-            populateNextQuestion3();
-        }else {
-            result.textContent = "Wrong!";
-            count = count-5;
-            populateNextQuestion3();
-        }
-    }
-    else if (questioncount == 3) {
-        if (compareArr[2] == 3) {
-            result.textContent = "Correct!";
-            score +=5;
-            populateNextQuestion4();
-        }else {
-            result.textContent = "Wrong!";
-            count = count-5;
-            populateNextQuestion4();
-        }
-    } 
-    else {
-        if (compareArr[3] == 4) {
-            result.textContent = "Correct!";
-            score +=5
-            jumpRespage();
-        }else {
-            result.textContent = "Wrong!";
-            count = count-5;
-            jumpRespage();
-        }
-    }
-    
-}
-
-
-function setAns1st() {
-    
-    localStorage.setItem("selected", ans1Index);
-    compareAns = localStorage.getItem("selected");
-    compareArr.push(compareAns);
-    questioncount++;
-    checkAns()
-}
-function setAns2nd() {
-    
-    localStorage.setItem("selected", ans2Index);
-    compareAns = localStorage.getItem("selected");
-    compareArr.push(compareAns);
-    questioncount++;
-    checkAns()
-}
-function setAns3rd() {
-    
-    localStorage.setItem("selected", ans3Index);
-    compareAns = localStorage.getItem("selected");
-    compareArr.push(compareAns);
-    questioncount++;
-    checkAns()
-}
-function setAns4th() {
-    
-    localStorage.setItem("selected", ans4Index);
-    compareAns = localStorage.getItem("selected");
-    compareArr.push(compareAns);
-    questioncount++;
-    checkAns()
-}
-
-answer1.addEventListener("click",setAns1st)
-answer2.addEventListener("click",setAns2nd)
-answer3.addEventListener("click",setAns3rd)
-answer4.addEventListener("click",setAns4th)
-
