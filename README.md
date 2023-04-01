@@ -8,3 +8,6 @@ Timer will dedcted five seconds when question is anwered wrong.
 You got 75 second to answer all questions
 
 Deployed Website Link: https://aliceliu1218.github.io/Timed-Quiz/
+
+Screenshot of website:
+Screenshot 2023-04-01 .png
